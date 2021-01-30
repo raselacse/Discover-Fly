@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+        <section id="book-now" class="booking-form">
+            <div>
+                <h3>Booking Flights</h3>
+                <div class="input-group">
+                    <label for="">Flying From</label>
+                    <input id="flying-from" class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+                </div>
+                <div class="input-group">
+                    <label for="">Flying To</label>
+                    <input id="flying-to" class="inp-style" type="text" name="" placeholder="New York, United States">
+                </div>
+                <div class="inputs">
+                    <div class="input-group">
+                        <label" for="">Departure</label>
+                        <input id="departure-date" class="inp-style" type="date" name="">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Return</label>
+                        <input id="return-date" class="inp-style" type="date" name="">
+                    </div>
+                </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">First Class ($150)</label>
+                        <input id="first-class-count" class="inp-style inp-width" type="text" value="0" name="">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <p> 
+                            <span onclick="ticketCountHandler('first-class', true)">+</span> 
+                            <span onclick="ticketCountHandler('first-class', false)">-</span> 
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy ($100)</label>
+                        <input id="economy-count" class="inp-style inp-width" type="text" value="0" name="">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <p> 
+                            <span onclick="ticketCountHandler('economy', true)">+</span> 
+                            <span onclick="ticketCountHandler('economy', false)">-</span> 
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="total-price">$0</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax-amount">$0</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="grand-total">$0</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="bookingValidation()" class="btn-style">Book Now</button>
+        </section>
+
+        <section class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+        </section>
+
+        <section id="booking-confirmation" class = "booking-form">
+            <div>
+                <img src="images/logo.png" alt="">
+                <h2 style="text-align: center;">Booking Document</h2>
+                <hr>
+            </div>
+            <div style="padding: 0 200px;">
+                <h5 style="padding-left:44px;">From:<span id="fromOutput"></span></h5>
+                <h5 style="padding-left:60px;">To:<span id="toOutput"></span></h5>
+                <h5 style="padding-left:16px;">Departure:<span id="departure"></span></h5>
+                <h5 style="padding-left:35px;">Return:<span id="return"></span></h5>
+                <h5>Ticket Type:<span id="ticketClass"></span></h5>
+                <h5 style="padding-left:20px;">Total Fee:<span id="total"></span></h5>
+            </div>
+        </section>
+    </main>
+
+    <!--Thank You-->
+    <script>
+        function ticketCountHandler(ticket, isIncrease){
+           const ticketCount = getInputValue(ticket);
+           let newTicketCount = ticketCount;
+           if(isIncrease == true){
+            newTicketCount = ticketCount + 1;
+           }
+           if(isIncrease == false && ticketCount > 0){
+            newTicketCount = ticketCount - 1;
+           }
+           document.getElementById(ticket + "-count").value = newTicketCount;
+           calculateTotalFee();
+        }
+
+        function calculateTotalFee(){
+           const firstClass = getInputValue('first-class');
+           const economy = getInputValue('economy');
+  
+           const totalPrice = firstClass * 150 + economy * 100;
+           document.getElementById('total-price').innerText = '$' + totalPrice;
+  
+           const tax = Math.round(totalPrice * 0.1);
+           document.getElementById('tax-amount').innerText = '$' + tax;
+  
+           const grandTotal = totalPrice + tax;
+           document.getElementById('grand-total').innerText = '$' + grandTotal;
+        }
+
+        function getInputValue(ticket){
+           const ticketInput = document.getElementById(ticket + '-count');
+           const ticketCount = parseFloat(ticketInput.value);
+           console.log(ticketCount);
+           return ticketCount;         
+        }
+
+        function bookingValidation(){
+            const firstClassCount = document.getElementById("first-class-count").value;
+            const economyClassCount = document.getElementById("economy-count").value;
+            const flyingFrom = document.getElementById("flying-from").value;
+            const flyingTo = document.getElementById("flying-to").value;
+            const departureDate = document.getElementById("departure-date").value;
+            const returnDate = document.getElementById("return-date").value;
+
+            if(departureDate == '' || returnDate == ''){
+                alert("Please fill in the gap");
+            }
+            else if(flyingFrom == '' || flyingTo == ''){
+                alert("Please fill in the gap");
+            }
+            else if(firstClassCount == 0 && economyClassCount == 0){
+                alert("Please fill in the gap");
+            }else{
+                afterBooking(firstClassCount, economyClassCount,flyingFrom,flyingTo,departureDate,returnDate);
+            }
+            
+        }
+        function afterBooking(firstClassCount, economyClassCount,flyingFrom,flyingTo,departureDate,returnDate){
+            const bookingForm = document.getElementById("book-now");
+            bookingForm.style.display = 'none';
+
+            const bookingConfirmation = document.getElementById("booking-confirmation");
+            bookingConfirmation.style.display = 'block';
+
+            const totalTicketPrice = document.getElementById("grand-total").innerText;
+            document.getElementById("total").innerText = totalTicketPrice;
+            
+            document.getElementById("fromOutput").innerText = flyingFrom;
+            document.getElementById("toOutput").innerText = flyingTo;
+            
+            document.getElementById("departure").innerText = departureDate;
+            document.getElementById("return").innerText = returnDate;
+
+            if(firstClassCount >= 0 || economyClassCount >= 0){
+                if(firstClassCount > 0 && economyClassCount > 0){
+                    document.getElementById("ticketClass").innerText = 'Both Class';
+                }
+                else if(firstClassCount > 0){
+                    document.getElementById("ticketClass").innerText = 'First Class';
+                }
+                else if(economyClassCount > 0){
+                    document.getElementById("ticketClass").innerText = 'Second Class';
+                }
+                else{
+                    document.getElementById("ticketClass").innerText = '';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
