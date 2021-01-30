@@ -70,7 +70,11 @@ nav ul li a:hover, a.active{
     font-size: 30px;
     padding: 2px;
     margin-top: 10px;
-    word-spacing: 20px;
+    /* word-spacing: 20px; */
+}
+.plus-minus-btn span{
+    cursor: pointer;
+    padding: 0 10px;
 }
 .booking-form  .calculations{
     margin: 10px 0;
@@ -120,14 +124,16 @@ nav ul li a:hover, a.active{
     display: flex;
     justify-content: space-between;
 }
-
-#booking-confirmation{
+#booking-info{
     display: none;
 }
-#booking-confirmation h5{
+#booking-info h2{
+    text-align: center;
+}
+#booking-info h5{
     margin: 10px 0;
 }
-#booking-confirmation h5 span{
+#booking-info h5 span{
     padding: 0 10px;
 }
 

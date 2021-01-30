@@ -111,10 +111,10 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
         </section>
 
-        <section id="booking-confirmation" class = "booking-form">
+        <section id="booking-info" class = "booking-form">
             <div>
                 <img src="images/logo.png" alt="">
-                <h2 style="text-align: center;">Booking Document</h2>
+                <h2>Booking Document</h2>
                 <hr>
             </div>
             <div style="padding: 0 200px;">
@@ -122,13 +122,12 @@
                 <h5 style="padding-left:60px;">To:<span id="toOutput"></span></h5>
                 <h5 style="padding-left:16px;">Departure:<span id="departure"></span></h5>
                 <h5 style="padding-left:35px;">Return:<span id="return"></span></h5>
-                <h5>Ticket Type:<span id="ticketClass"></span></h5>
+                <h5 style="padding-left:5px;">Ticket Type:<span id="ticketClass"></span></h5>
                 <h5 style="padding-left:20px;">Total Fee:<span id="total"></span></h5>
             </div>
         </section>
     </main>
 
-    <!--Thank You-->
     <script>
         function ticketCountHandler(ticket, isIncrease){
            const ticketCount = getInputValue(ticket);
@@ -189,7 +188,7 @@
             const bookingForm = document.getElementById("book-now");
             bookingForm.style.display = 'none';
 
-            const bookingConfirmation = document.getElementById("booking-confirmation");
+            const bookingConfirmation = document.getElementById("booking-info");
             bookingConfirmation.style.display = 'block';
 
             const totalTicketPrice = document.getElementById("grand-total").innerText;
